@@ -1,0 +1,26 @@
+/* variables */
+/* movil: azul */
+body {
+  background: blue;
+  transition: background 0.5s; }
+
+/* tablet: verde */
+@media all and (min-width: 768px) {
+  body {
+    background: grey; } }
+
+/* desktop: amarillo */
+@media all and (min-width: 1025px) {
+  body {
+    background: yellow;
+    transition: background 2s; } }
+
+/* tv: naranja */
+@media all and (min-width: 1200px) {
+  body {
+    background: orange; } }
+
+/* cine: rojo */
+@media all and (min-width: 1400px) {
+  body {
+    background: red; } }
