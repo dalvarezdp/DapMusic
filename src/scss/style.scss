@@ -1,42 +1,4 @@
-/* variables */
-$mobile-background-color: blue;
-$tablet-background-color: grey;
-$desktop-background-color: yellow;
-$tv-background-color: orange;
-$cinema-background-color: red;
-
-
-/* movil: azul */
-body {
-    background: $mobile-background-color;
-    transition: background 0.5s;
-}
-
-/* tablet: verde */
-@media all and (min-width: 768px) {
-    body {
-        background: $tablet-background-color;
-    }
-}
-
-/* desktop: amarillo */
-@media all and (min-width: 1025px) {
-    body {
-        background: $desktop-background-color;
-        transition: background 2s;
-    }
-}
-
-/* tv: naranja */
-@media all and (min-width: 1200px) {
-    body {
-        background: $tv-background-color;
-    }
-}
-
-/* cine: rojo */
-@media all and (min-width: 1400px) {
-    body {
-        background: $cinema-background-color;
-    }
-}
+@import url('<link href="https://fonts.googleapis.com/css?family=Patua+One|Slabo+27px" rel="stylesheet">');
+@import "variables";
+@import "html-tags";
+@import "web-header";
