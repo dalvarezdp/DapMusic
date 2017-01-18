@@ -3,10 +3,15 @@ body {
   background: white;
   color: #255D67;
   font-family: "Slabo 27px", serif;
-  font-size: 16px; }
+  font-size: 16px;
+  padding: 0px;
+  margin: 0px; }
 
 .web-header {
-  background: #4DC1D6; }
+  background: #4DC1D6;
+  padding: 10px; }
   .web-header .web-title {
     color: white;
-    text-align: center; }
+    text-align: center;
+    margin: 0px;
+    text-shadow: 2px 2px 0px #23879a; }
