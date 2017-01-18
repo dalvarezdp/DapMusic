@@ -24,19 +24,40 @@ body {
     text-shadow: 2px 2px 0px #1a6370;
     font-family: "Patua One", serif; }
 
+@media all and (min-width: 768px) {
+  .songs-list {
+    display: flex;
+    flex-wrap: wrap; } }
+
 .songs-list .song {
   padding: 15px;
   border-bottom: 1px solid #D5D5D5; }
+  @media all and (min-width: 768px) {
+    .songs-list .song {
+      width: 20%;
+      box-sizing: border-box;
+      text-align: center; } }
+  @media all and (min-width: 1024px) {
+    .songs-list .song {
+      width: 16.66667%; } }
   .songs-list .song .cover {
     width: 100px;
     float: left;
     margin-right: 20px; }
+    @media all and (min-width: 768px) {
+      .songs-list .song .cover {
+        float: none;
+        margin: 0px;
+        width: 100%; } }
   .songs-list .song .artist {
     margin-top: 25px;
     font-size: 22px;
     text-overflow: ellipsis;
     white-space: nowrap;
     overflow: hidden; }
+    @media all and (min-width: 768px) {
+      .songs-list .song .artist {
+        margin-top: 5px; } }
   .songs-list .song .title {
     text-overflow: ellipsis;
     white-space: nowrap;
