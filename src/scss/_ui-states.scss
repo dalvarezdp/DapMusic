@@ -1,0 +1,22 @@
+body{
+  &.ui-songs-list-shown{
+    //Si se tiene que ver el listado de canciones
+    .songs-list{
+      display: block;
+    }
+    //No se tiene que ver el formulario
+    .new-song-form{
+      display: none;
+    }
+  }
+  &.ui-form-shown{
+    //No se tiene que ver el listado de canciones
+    .songs-list{
+      display: none;
+    }
+    //Si se tiene que ver el formulario
+    .new-song-form{
+      display: flex;
+    }
+  }
+}
