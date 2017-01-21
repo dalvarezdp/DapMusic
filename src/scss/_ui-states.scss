@@ -2,12 +2,19 @@ body{
   &.ui-songs-list-shown{
     //Si se tiene que ver el listado de canciones
     .songs-list{
-      display: flex;
+      display: block;
     }
     //No se tiene que ver el formulario
     .new-song-form{
       display: none;
     }
+
+    @include if-is-medium-screen{
+      .songs-list{
+        display: flex;
+      }
+    };
+
   }
   &.ui-form-shown{
     //No se tiene que ver el listado de canciones
