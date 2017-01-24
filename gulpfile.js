@@ -7,6 +7,11 @@ var browserify = require('browserify');
 var tap = require('gulp-tap');
 var buffer = require('gulp-buffer');
 var sourcemaps = require('gulp-sourcemaps');
+var uglify = require('gulp-uglify');
+var postcss = require('gulp-postcss');
+var autoprefixer = require('autoprefixer');
+var cssnano = require('cssnano');
+
 
 // config
 var sassConfig = {
@@ -23,6 +28,13 @@ var jsConfig = {
     concatFile: 'main.js',
     dest: './dist/'
 };
+
+var uglifyConfig = {
+  uglifyTaskName: "uglify",
+  src: './dist/main.js',
+  dest: './dist/'
+}
+
 
 // definimos la tarea por defecto
 gulp.task("default", [sassConfig.compileSassTaskName, jsConfig.concatJsTaskName], function(){
@@ -53,6 +65,7 @@ gulp.task(sassConfig.compileSassTaskName, function(){
     .pipe(sass().on('error', function(error){ // compilamos sass
         return notify().write(error); // si ocurre un error, mostramos notifiación
     }))
+    .pipe(postcss([autoprefixer(),cssnano()])) // autoprefija el css y lo minifica
     .pipe(sourcemaps.write('./')) // terminamos de capturar los sourcemaps
     .pipe(gulp.dest(sassConfig.dest))      // dejo el resultado en ./dist/
     .pipe(browserSync.stream())     // recargamos el CSS en el navegador
@@ -72,8 +85,18 @@ gulp.task(jsConfig.concatJsTaskName, function(){
     .pipe(buffer()) // convertimos a buffer para que funcione el siguiente pipe
     // .pipe(concat(jsConfig.concatFile))
     .pipe(sourcemaps.init({ loadMaps: true })) // empezamos a capturar los sourcemaps
+    .pipe(uglify())
     .pipe(sourcemaps.write('./')) // terminamos de capturar los sourcemaps
     .pipe(gulp.dest(jsConfig.dest))
     .pipe(notify("JS Concatenado 💪"))
     .pipe(browserSync.stream());
+});
+
+
+// minifica js
+gulp.task(uglifyConfig.uglifyTaskName, function(){
+    gulp.src(uglifyConfig.src)
+    .pipe(uglify())
+    .pipe(gulp.dest(uglifyConfig.dest))
+    .pipe(notify("JS minificado 💪"));
 });
