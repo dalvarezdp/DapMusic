@@ -14,7 +14,12 @@ $song-border-width: 1px;
   // estado ideal
   &.ideal .ui-ideal{
     display: block;
+    @include if-is-medium-screen {
+      display: flex;
+    }
   }
+
+
   // estado en blanco vacio
   &.blank .ui-blank{
     display: block;
@@ -28,7 +33,7 @@ $song-border-width: 1px;
     display: block;
   }
 
-  @include if-is-medium-screen {
+  @include if-is-small-screen {
     display: flex;
     flex-wrap: wrap;
   }

@@ -17,4 +17,15 @@ $web-header-title-font: $titles-font-family;
         text-shadow: 2px 2px 0px darken($web-header-background-color, 30%);
         font-family: $web-header-title-font;
     }
+    img{
+      float: right;
+      margin: 10px 5px 0 0;
+      transition: 0.5s transform;
+      &:hover {
+        cursor: pointer;
+      }
+      .ui-form-shown & {
+        transform: rotate(45deg);
+      }
+    }
 }
