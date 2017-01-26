@@ -44,11 +44,19 @@ module.exports = {
         for (var i in songs) {
             var song = songs[i];
             var cover_url = song.cover_url;
-            if (cover_url == "" || cover_url == null) {
-                cover_url = "https://image.freepik.com/free-icon/cd-rom_318-9291.jpg";
-            }
             html += '<article class="song">';
-            html += '<img class="cover" src="' + cover_url + '" alt="' + song.artist + '">';
+            if (cover_url == "" || cover_url == null) {
+                cover_url = "/dist/img/disc-placeholder.jpg";
+                html += '<picture class="cover">';
+                // small screen
+                html += '<source srcset="/dist/img/disc-placeholder-125px.jpg 125w, /dist/img/disc-placeholder-250px.jpg 250w " media="(max-width: 767px)">';
+                // medium screen
+                html += '<source srcset="/dist/img/disc-placeholder-125px.jpg 125w, /dist/img/disc-placeholder-250px.jpg 250w, /dist/img/disc-placeholder-320px.jpg 320w, /dist/img/disc-placeholder-520px.jpg 520w" media="(min-width: 768px)">';
+                html += '<img class="cover" src="/dist/img/disc-placeholder.jpg">';
+                html += "</picture>";
+            } else {
+                html += '<img class="cover" src="' + cover_url + '" alt="' + song.artist + '">';
+            }
             html += '<div class="artist">' + song.artist + '</div>';
             html += '<div class="title">' + song.title + '</div>';
             html += "</article>";
