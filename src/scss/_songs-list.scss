@@ -16,6 +16,7 @@ $song-border-width: 1px;
     display: block;
     @include if-is-medium-screen {
       display: flex;
+      flex-wrap: wrap;
     }
   }
 
@@ -33,10 +34,6 @@ $song-border-width: 1px;
     display: block;
   }
 
-  @include if-is-small-screen {
-    display: flex;
-    flex-wrap: wrap;
-  }
 
   .song{
     @extend .clearfix;
@@ -72,6 +69,25 @@ $song-border-width: 1px;
     }
     .title{
       @include text-overflow-ellipsis;
+    }
+
+    .controls{
+      button {
+                cursor: pointer;
+                border: 0;
+                background-color: transparent;
+            }
+            .play-button {
+                @extend .play-circle-fill;
+                float: left;
+                &:hover {
+                    @extend .play-circle-outline;
+                }
+            }
+            .delete-button {
+                @extend .icon-trash;
+                float: right;
+            }
     }
   }
 }

@@ -59,9 +59,25 @@ module.exports = {
             }
             html += '<div class="artist">' + song.artist + '</div>';
             html += '<div class="title">' + song.title + '</div>';
+            html += '<div class="controls">';
+            html += '<button class="play-button" title="Play" data-audio-url="'+ song.audio_url +'"></button>';
+            html += '<button class="delete-button"data-id="'+ song.id +'" title="Delete"></button>';
+            html += '</div>';
             html += "</article>";
         }
         $(".songs-list .ui-ideal").html(html);
-    }
+    },
 
+    deleteSong: function (songId) {
+      var self = this;
+
+      SongsService.delete(songId,function () {
+        //Se ha borrado correctamente
+        self.loadSongs();
+      }, function () {
+        // se ha producido un error al borrar
+
+        alert("No se ha podido eliminar la canción");
+      });
+    }
 }

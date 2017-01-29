@@ -1,5 +1,6 @@
 var $ = require('jquery');
 var SongsService = require('./SongsService');
+var SongsListManager = require('./SongsListManager');
 
 $('.new-song-form').on('submit',function () {
 
@@ -36,6 +37,7 @@ $('.new-song-form').on('submit',function () {
         alert("Canción guarda correctamente");
         self.reset();
         $(self).find("button").text("Save song").attr("disabled", false); // TODO: refactorizar esto
+        SongsListManager.loadSongs();
       },
       function (error) {
         alert("Se ha producido un error");

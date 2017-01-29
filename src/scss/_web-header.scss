@@ -17,15 +17,19 @@ $web-header-title-font: $titles-font-family;
         text-shadow: 2px 2px 0px darken($web-header-background-color, 30%);
         font-family: $web-header-title-font;
     }
-    img{
+    button{
+      @extend .icon-add;
       float: right;
       margin: 10px 5px 0 0;
       transition: 0.5s transform;
-      &:hover {
-        cursor: pointer;
-      }
+      cursor: pointer;
+      border: 0;
+      background-color: transparent;
       .ui-form-shown & {
         transform: rotate(45deg);
+      }
+      &:focus{
+        outline: 0;
       }
     }
 }

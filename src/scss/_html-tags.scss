@@ -54,3 +54,10 @@ form{
 *::selection{
   background-color: $color-secondary;
 }
+
+
+audio{
+  position: fixed;
+  bottom: 0px;
+  width: 100%;
+}

@@ -13,6 +13,9 @@ var autoprefixer = require('autoprefixer');
 var cssnano = require('cssnano');
 var imagemin = require('gulp-imagemin');
 var responsive = require('gulp-responsive');
+var spritesmith = require('gulp.spritesmith');
+var envify = require('envify/custom');
+var gutil = require('gulp-util');
 
 
 // config
@@ -62,11 +65,18 @@ var imagesConfig = {
             {
                 rename: { suffix: '-original' }
             }
-        ],
-        '*.png': {
-            width: '100%'
-        }
+        ]
     }
+};
+
+var sprites = {
+    spritesTaskName: 'sprites',
+    imgSrc: './src/img/sprites/*.png',
+    imgName: 'sprite.png',
+    cssName: '_sprite.scss',
+    imgDest: './dist/img/',
+    cssDest: './src/scss/',
+    imgPath: 'img/sprite.png'
 };
 
 
@@ -112,14 +122,17 @@ gulp.task(jsConfig.concatJsTaskName, function(){
 
     .pipe(tap(function(file){ // para cada archivo seleccionado
         // lo pasamos por browserify para importar los require
-        file.contents = browserify(file.path, { debug:true }).bundle().on('error', function (error) {
-          return notify().write(error); //si ocurre un error en javascript, lanza notificación.
-        });
+        file.contents = browserify(file.path, { debug:true })
+          .transform(envify(gutil.env)) // nos permite leer variables de entorno en javascript
+          .bundle()
+          .on('error', function (error) {
+            return notify().write(error); //si ocurre un error en javascript, lanza notificación.
+          });
     }))
     .pipe(buffer()) // convertimos a buffer para que funcione el siguiente pipe
     // .pipe(concat(jsConfig.concatFile))
     .pipe(sourcemaps.init({ loadMaps: true })) // empezamos a capturar los sourcemaps
-    .pipe(uglify())
+    .pipe(gutil.env.type == 'production' ? uglify() : gutil.noop())
     .pipe(sourcemaps.write('./')) // terminamos de capturar los sourcemaps
     .pipe(gulp.dest(jsConfig.dest))
     .pipe(notify("JS Concatenado 💪"))
@@ -142,3 +155,15 @@ gulp.task(imagesConfig.imagesTaskName, function () {
     .pipe(imagemin()) //optimiza el tamaño de las imagenes
     .pipe(gulp.dest(imagesConfig.dest));
 })
+
+// generacion de spritesheets
+gulp.task(sprites.spritesTaskName, function(){
+    var spriteData = gulp.src(sprites.imgSrc).
+    pipe(spritesmith({
+        imgName: sprites.imgName,
+        cssName: sprites.cssName,
+        imgPath: sprites.imgPath
+    }));
+    spriteData.img.pipe(gulp.dest(sprites.imgDest));
+    spriteData.css.pipe(gulp.dest(sprites.cssDest));
+});
